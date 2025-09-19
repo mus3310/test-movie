@@ -13,7 +13,7 @@ export async function apiFetch(endpoint = '', options = {}) {
 	try {
 		const token = btoa(`${config.authUser}:${config.authPass}`);
 		const _fetch = (options as any)?.fetch ?? fetch;
-		const res = await _fetch(`${config.baseUrl}${endpoint.replace(/^\/api/, '')}`, {
+		const res = await _fetch(`${endpoint}`, {
 			...options,
 			headers: {
 				Referer: 'https://mymovies-hd.com',
