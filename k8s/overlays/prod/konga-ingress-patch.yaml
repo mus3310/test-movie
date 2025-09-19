@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: konga
+  namespace: infra
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - konga.meyacrew.com
+    secretName: konga-meyacrew-com-tls
+  rules:
+  - host: konga.meyacrew.com # Production hostname
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: konga
+            port:
+              number: 80

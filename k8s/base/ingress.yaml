@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mymovies-hd-ingress
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/protocols: http,https
+    konghq.com/https-redirect-status-code: "301"
+    cert-manager.io/cluster-issuer: letsencrypt-dns01
+    konghq.com/tls: mymovies-hd-tls
+spec:
+  ingressClassName: kong
+  rules:
+  - host: mymovies-hd.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mymovies-hd
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - mymovies-hd.com
+    secretName: mymovies-hd-tls

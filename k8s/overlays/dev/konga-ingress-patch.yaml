@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: konga
+  namespace: infra
+spec:
+  rules:
+  - host: konga.dev.meyacrew.com # Specific hostname for dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: konga
+            port:
+              number: 80

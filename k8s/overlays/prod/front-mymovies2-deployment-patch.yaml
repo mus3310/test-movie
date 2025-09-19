@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-mymovies2
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: front-mymovies2
+          image: your-repo/front-mymovies2-image

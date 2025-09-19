@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: app
+spec:
+  replicas: 3 # Higher replica count for production
+  template:
+    spec:
+      containers:
+      - name: backend
+        image: your-repo/backend-image:prod-latest # Specific image for prod
+        resources:
+          requests:
+            cpu: 400m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi

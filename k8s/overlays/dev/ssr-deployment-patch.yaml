@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssr
+  namespace: app
+spec:
+  replicas: 1 # Lower replica count for dev
+  template:
+    spec:
+      containers:
+      - name: ssr
+        image: your-repo/ssr-image:dev-latest # Specific image for dev

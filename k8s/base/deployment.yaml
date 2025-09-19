@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mymovies-hd
+  labels:
+    app: mymovies-hd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mymovies-hd
+  template:
+    metadata:
+      labels:
+        app: mymovies-hd
+    spec:
+      initContainers:
+      - name: fetch-artifact
+        image: public.ecr.aws/aws-cli/aws-cli:2.18.17
+        env:
+        - name: APP_NAME
+          value: "mymovies-hd"
+
+        command: [ "/bin/sh", "-lc" ]
+        args:
+        - |
+          set -e
+          mkdir -p /app
+          aws s3 cp s3://${S3_BUCKET_PREFIX}/${COMMIT}/${APP_NAME}.tgz /tmp/app.tgz
+          tar -xzf /tmp/app.tgz -C /app
+        volumeMounts:
+        - name: app-data
+          mountPath: /app
+      containers:
+      - name: mymovies-hd
+        image: node:20-alpine
+        command: [ "/bin/sh", "-lc", "/app/start.sh" ]
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: app-data
+          mountPath: /app
+      volumes:
+      - name: app-data
+        emptyDir: {}

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mymovies-hd
+  labels:
+    app: mymovies-hd
+spec:
+  type: ClusterIP
+  selector:
+    app: mymovies-hd
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000

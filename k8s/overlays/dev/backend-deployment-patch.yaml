@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: app
+spec:
+  replicas: 1 # Lower replica count for dev
+  template:
+    spec:
+      containers:
+      - name: backend
+        image: your-repo/backend-image:dev-latest # Specific image for dev

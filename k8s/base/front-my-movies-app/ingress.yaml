@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: front-my-movies-app
+  namespace: app
+  annotations:
+    kubernetes.io/ingress.class: kong
+spec:
+  rules:
+    - host: front-my-movies-app.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: front-my-movies-app
+                port:
+                  number: 80

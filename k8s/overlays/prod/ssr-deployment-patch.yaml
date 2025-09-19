@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssr
+  namespace: app
+spec:
+  replicas: 3 # Higher replica count for production
+  template:
+    spec:
+      containers:
+      - name: ssr
+        image: your-repo/ssr-image:prod-latest # Specific image for prod
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi

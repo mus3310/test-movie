@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: __APP_NAMESPACE__
+
+resources:
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+
+commonLabels:
+  app: __APP_NAME__
+  managed-by: gitlab-ci
+
+images:
+- name: __REGISTRY_IMAGE__
+  newTag: __IMAGE_TAG__

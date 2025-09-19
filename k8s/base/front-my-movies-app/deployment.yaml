@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-my-movies-app
+  namespace: app
+  labels:
+    app.kubernetes.io/name: front-my-movies-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: front-my-movies-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: front-my-movies-app
+    spec:
+      containers:
+      - name: front-my-movies-app
+        image: your-repo/front-my-movies-app-image:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
